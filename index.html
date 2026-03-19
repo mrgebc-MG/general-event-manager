@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Production Manager — Eastside Church</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" />
+</head>
+<body>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <div class="brand-mark">EC</div>
+      <div>
+        <div class="brand-name">Eastside</div>
+        <div class="brand-sub">Production Team</div>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a href="index.html" class="nav-item active">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+        Dashboard
+      </a>
+      <a href="#" class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        Calendar
+      </a>
+      <a href="#" class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        Team
+      </a>
+      <a href="#" class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        Templates
+      </a>
+      <a href="#" class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 1 1-14.14 0"/></svg>
+        Settings
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="user-pill">
+        <div class="user-avatar">MG</div>
+        <div>
+          <div class="user-name">Marlon G.</div>
+          <div class="user-role">Tech Director</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <!-- TOPBAR -->
+    <div class="topbar">
+      <div class="topbar-left">
+        <h1 class="page-title">Dashboard</h1>
+        <div class="page-date" id="pageDate"></div>
+      </div>
+      <div class="topbar-right">
+        <button class="btn-add" onclick="openAddModal()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Add Event
+        </button>
+      </div>
+    </div>
+
+    <!-- STATS ROW -->
+    <div class="stats-row" id="statsRow"></div>
+
+    <!-- CONTENT GRID -->
+    <div class="content-grid">
+
+      <!-- UPCOMING EVENTS -->
+      <section class="events-section">
+        <div class="section-header">
+          <h2>Upcoming Events</h2>
+          <div class="filter-pills">
+            <button class="pill active" data-filter="all">All</button>
+            <button class="pill" data-filter="sunday">Sunday</button>
+            <button class="pill" data-filter="special">Special</button>
+            <button class="pill" data-filter="wedding">Wedding</button>
+            <button class="pill" data-filter="ecs">ECS</button>
+          </div>
+        </div>
+        <div class="event-list" id="eventList"></div>
+      </section>
+
+      <!-- SIDEBAR PANELS -->
+      <aside class="right-panel">
+
+        <!-- THIS WEEK MINI CALENDAR -->
+        <div class="panel">
+          <div class="panel-title">This Week</div>
+          <div class="week-strip" id="weekStrip"></div>
+        </div>
+
+        <!-- OPEN ROLES -->
+        <div class="panel">
+          <div class="panel-title">Open Roles</div>
+          <div class="open-roles" id="openRoles"></div>
+        </div>
+
+        <!-- QUICK ADD -->
+        <div class="panel panel-cta">
+          <p class="cta-label">Planning Center sync</p>
+          <p class="cta-sub">Last synced 2 hours ago</p>
+          <button class="btn-sync">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+            Sync Now
+          </button>
+        </div>
+
+      </aside>
+    </div>
+
+  </main>
+
+  <!-- ADD EVENT MODAL -->
+  <div class="modal-overlay" id="addModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>Add New Event</h3>
+        <button class="modal-close" onclick="closeAddModal()">&times;</button>
+      </div>
+      <form class="modal-form" onsubmit="handleAddEvent(event)">
+        <div class="form-row">
+          <label>Event Name *</label>
+          <input type="text" id="newEventName" placeholder="e.g. Sunday Morning Service" required />
+        </div>
+        <div class="form-row-2">
+          <div class="form-row">
+            <label>Date *</label>
+            <input type="date" id="newEventDate" required />
+          </div>
+          <div class="form-row">
+            <label>Time</label>
+            <input type="time" id="newEventTime" value="09:00" />
+          </div>
+        </div>
+        <div class="form-row">
+          <label>Event Type *</label>
+          <select id="newEventType" required>
+            <option value="">Select type</option>
+            <option value="sunday">Sunday Service</option>
+            <option value="special">Special Service</option>
+            <option value="wedding">Wedding / Funeral</option>
+            <option value="ecs-chapel">ECS Chapel</option>
+            <option value="ecs-performance">ECS Performance</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label>Notes</label>
+          <textarea id="newEventNotes" rows="2" placeholder="Any quick context..."></textarea>
+        </div>
+        <button type="submit" class="btn-submit">Create Event</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
